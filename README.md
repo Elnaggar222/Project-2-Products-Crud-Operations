@@ -22,6 +22,7 @@ This project is a simple CRUD application for managing products, designed as a t
 - 📦 **Headless UI**: Implemented modals for a seamless user experience.
 - 🖱️ **Tailwind UI**: Enhanced the interface using select menus.
 - 🔔 **React Hot Toast**: Provided elegant notification messages.
+- ✅ **Form Validation**: Implemented custom form validation without using any external libraries.
 
 ---
 

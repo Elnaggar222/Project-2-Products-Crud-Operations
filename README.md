@@ -9,6 +9,7 @@ This project is a simple CRUD application for managing products, designed as a t
 - 🆕 **Add Products**: Admins can add new products to the list.
 - ✏️ **Edit Products**: Update product details with ease.
 - 🗑️ **Delete Products**: Remove any unwanted product.
+- ✅ **Form Validation**: Implemented custom form validation without using any external libraries.
 
 > **Note:** The project focuses on functionality and training, so it doesn't interact with a backend or database.
 
@@ -22,7 +23,6 @@ This project is a simple CRUD application for managing products, designed as a t
 - 📦 **Headless UI**: Implemented modals for a seamless user experience.
 - 🖱️ **Tailwind UI**: Enhanced the interface using select menus.
 - 🔔 **React Hot Toast**: Provided elegant notification messages.
-- ✅ **Form Validation**: Implemented custom form validation without using any external libraries.
 
 ---
 

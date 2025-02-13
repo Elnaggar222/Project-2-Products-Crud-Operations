@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, memo } from "react";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -17,4 +17,4 @@ const Button = ({ children, width = "w-full", className, ...rest }: IProps) => {
   );
 };
 
-export default Button;
+export default memo(Button);

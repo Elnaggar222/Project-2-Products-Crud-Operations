@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, memo } from "react";
 
 interface IProps extends HTMLAttributes<HTMLSpanElement> {
   color: string;
@@ -14,4 +14,4 @@ const ColorItem = ({ color, ...rest }: IProps) => {
   );
 };
 
-export default ColorItem;
+export default memo(ColorItem);

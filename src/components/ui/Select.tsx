@@ -8,6 +8,7 @@ import {
 import { ChevronUpDownIcon } from "@heroicons/react/16/solid";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { ICategory } from "../../interfaces";
+import { memo } from "react";
 
 interface IProps {
   selected: ICategory;
@@ -67,4 +68,4 @@ const Select = ({ selected, setSelected, categories }: IProps) => {
     </Listbox>
   );
 };
-export default Select;
+export default memo(Select);

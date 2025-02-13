@@ -4,6 +4,7 @@ import { IErrorsForm, IProduct } from "../interfaces";
 import { formatPriceWithCommas, txtSlicer } from "../utils/functions";
 import ColorItem from "./ColorItem";
 import { defaultErrorsForm } from "../data";
+import { memo } from "react";
 interface IProductCard {
   product: IProduct;
   setProductForm: (product: IProduct) => void;
@@ -80,4 +81,4 @@ const ProductCard = ({
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import Modal from "./components/ui/Modal";
 import {
   categories,
@@ -11,7 +11,7 @@ import {
 import ProductCard from "./components/ProductCard";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
-import { IProduct } from "./interfaces";
+import { ICategory, IProduct } from "./interfaces";
 import { ProductFormValidation } from "./validations";
 import ErrorMsg from "./components/ErrorMsg";
 import ColorItem from "./components/ColorItem";
@@ -31,48 +31,54 @@ const App = () => {
   //^ By default, we are adding a new product
   const [operation, setOperation] = useState("add");
   /*_______________Handlers______________*/
+  const handleSetSelected = useCallback((value: ICategory) => {
+    setErrors((prev) => ({ ...prev, category: "" }));
+    setProductForm((prev) => ({ ...prev, category: value }));
+  }, []);
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsOpen(true);
-  };
-
-  const handleColorSelect = (color: string): void => {
-    setErrors((prev) => ({ ...prev, colors: "" }));
-    const isColorExist = productForm.colors.includes(color);
-    if (isColorExist) {
-      setProductForm((prev) => ({
-        ...prev,
-        colors: prev.colors.filter((c) => c !== color),
-      }));
-    } else {
-      setProductForm((prev) => ({
-        ...prev,
-        colors: [...prev.colors, color],
-      }));
-    }
-  };
-  const handleAddProduct = () => {
+  }, []);
+  const handleColorSelect = useCallback(
+    (color: string): void => {
+      setErrors((prev) => ({ ...prev, colors: "" }));
+      const isColorExist = productForm.colors.includes(color);
+      if (isColorExist) {
+        setProductForm((prev) => ({
+          ...prev,
+          colors: prev.colors.filter((c) => c !== color),
+        }));
+      } else {
+        setProductForm((prev) => ({
+          ...prev,
+          colors: [...prev.colors, color],
+        }));
+      }
+    },
+    [productForm.colors]
+  );
+  const handleAddProduct = useCallback(() => {
     setOperation("add");
     setProductForm({ ...defaultProductForm });
     setErrors({ ...defaultErrorsForm });
     openModal();
-  };
-  const handleCanel = () => {
+  }, [openModal]);
+  const handleCanel = useCallback(() => {
     setProductForm({ ...defaultProductForm });
     setErrors({ ...defaultErrorsForm });
     closeModal();
-  };
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  }, []);
+  const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProductForm((prev) => ({
       ...prev,
       [name]: value,
     }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
+  }, []);
   const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (operation === "delete") {
@@ -157,7 +163,11 @@ const App = () => {
   );
   return (
     <div className="container mx-auto my-6">
-      <Button width="w-fit" onClick={handleAddProduct} className="bg-indigo-900 my-6 ml-[50%] translate-x-[-50%]">
+      <Button
+        width="w-fit"
+        onClick={handleAddProduct}
+        className="bg-indigo-900 my-6 ml-[50%] translate-x-[-50%]"
+      >
         Add New Product
       </Button>
       <div className="gap-4 rounded-md grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
@@ -183,10 +193,7 @@ const App = () => {
                 <Select
                   categories={categories}
                   selected={productForm.category}
-                  setSelected={(value) => {
-                    setErrors({ ...errors, category: "" });
-                    setProductForm({ ...productForm, category: value });
-                  }}
+                  setSelected={handleSetSelected}
                 />
                 <ErrorMsg msg={errors.category} />
               </div>
